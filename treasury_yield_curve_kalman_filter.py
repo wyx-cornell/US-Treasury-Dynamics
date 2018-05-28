@@ -13,7 +13,7 @@ import pandas as pd
 import xlwings as xw
 import datetime as dt
 
-EXCEL_FILE_NAME = '/Users/wyx/Desktop/fixed_income_excel_practice/kalman_filter.xlsm'
+EXCEL_FILE_NAME = 'kalman_filter.xlsm'
 FACTORS = ['level', 'slope', 'convexity']
 DATA_SHEET_NAME = 'Data'
 PARAMETER_SHEET_NAME = 'Kalman Filter Parameters'
@@ -165,7 +165,8 @@ def getDateList():
     book = xw.Book(EXCEL_FILE_NAME)
     sheet = getSheetFromBook(book, DATA_SHEET_NAME)
     
-    return [x[0] if isinstance(x,list) else x for x in sheet.range('A2').expand().value]
+    res = sheet.range('A2').expand().value
+    return [x[0] if isinstance(x,list) else x for x in res] if res else []
     
     
 def getMeasurementDataFromExcelSheet():
